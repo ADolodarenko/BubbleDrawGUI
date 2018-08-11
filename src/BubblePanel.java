@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.util.Random;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.awt.event.*;
 
 public class BubblePanel extends JPanel
 {
@@ -14,8 +15,10 @@ public class BubblePanel extends JPanel
 	{
 		bubbleList = new ArrayList<>();
 		setBackground(Color.BLACK);
-		
-		testBubbles();
+		addMouseListener(new BubbleListener());
+		addMouseMotionListener(new BubbleListener());
+		addMouseWheelListener(new BubbleListener());
+		//testBubbles();
 	}
 	
 	@Override
@@ -41,6 +44,30 @@ public class BubblePanel extends JPanel
 		repaint();
 	}
 	
+	private class BubbleListener extends MouseAdapter
+	{
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			bubbleList.add(new Bubble(e.getX(), e.getY(), size));
+			repaint();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			bubbleList.add(new Bubble(e.getX(), e.getY(), size));
+			repaint();
+		}
+
+		@Override
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			size += e.getUnitsToScroll();
+			
+			if (size < 3)
+				size = 3;
+		}		
+	}
+	
 	private class Bubble
 	{
 		private int x;
@@ -52,6 +79,8 @@ public class BubblePanel extends JPanel
 		{
 			x = newX;
 			y = newY;
+			//x = (newX / newSize) * newSize + newSize / 2;
+			//y = (newY / newSize) * newSize + newSize / 2;
 			size = newSize;
 			color = new Color(rand.nextInt(256),
 					rand.nextInt(256),
@@ -62,6 +91,7 @@ public class BubblePanel extends JPanel
 		{
 			canvas.setColor(color);
 			canvas.fillOval(x - size/2, y - size/2, size, size);
+			//canvas.fillRect(x - size/2, y - size/2, size, size);
 		}
 	}
 

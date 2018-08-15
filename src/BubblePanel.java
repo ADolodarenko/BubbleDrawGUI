@@ -16,6 +16,15 @@ import java.awt.Dimension;
 
 public class BubblePanel extends JPanel
 {
+	private static final String CHOOSE_BUBBLE_COLOR = "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0446\u0432\u0435\u0442 \u043A\u0438\u0441\u0442\u0438";
+	private static final String CHOOSE_BACK_COLOR = "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0446\u0432\u0435\u0442 \u0444\u043E\u043D\u0430";
+	private static final String BUTTON_PAUSE = "\u0421\u0442\u043E\u043F";
+	private static final String BUTTON_START = "\u0421\u0442\u0430\u0440\u0442";
+	private static final String BUTTON_CLEAR = "\u0421\u0442\u0435\u0440\u0435\u0442\u044C";
+	private static final String LABEL_BACKGROUND = "\u0426\u0432\u0435\u0442 \u0444\u043E\u043D\u0430:";
+	private static final String LABEL_FOREGROUND = "\u0426\u0432\u0435\u0442 \u043A\u0438\u0441\u0442\u0438:";
+	private static final String LABEL_ANIMATION_SPEED = "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0430\u043D\u0438\u043C\u0430\u0446\u0438\u0438:";
+	
 	Random rand = new Random();
 	ArrayList<Bubble> bubbleList;
 	int size = 25;
@@ -37,26 +46,26 @@ public class BubblePanel extends JPanel
 		JPanel panel = new JPanel();
 		add(panel);
 		
-		JButton btnPause = new JButton("Pause");
+		JButton btnPause = new JButton(BUTTON_PAUSE);
 		btnPause.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				JButton btn = (JButton)e.getSource();
-				if (btn.getText().equals("Pause"))
+				if (btn.getText().equals(BUTTON_PAUSE))
 				{
 					timer.stop();
-					btn.setText("Start");
+					btn.setText(BUTTON_START);
 				}
 				else
 				{
 					timer.start();
-					btn.setText("Pause");
+					btn.setText(BUTTON_PAUSE);
 				}
 			}
 		});
 		
-		JLabel lblBackgroundColor = new JLabel("Background color:");
+		JLabel lblBackgroundColor = new JLabel(LABEL_BACKGROUND);
 		panel.add(lblBackgroundColor);
 		
 		txtBackground = new JTextField();
@@ -68,7 +77,7 @@ public class BubblePanel extends JPanel
 			public void mouseClicked(MouseEvent arg0)
 			{
 				Color currentColor = txtBackground.getBackground();
-				Color selectedColor = JColorChooser.showDialog(null, "Choose a background color", currentColor);
+				Color selectedColor = JColorChooser.showDialog(null, CHOOSE_BACK_COLOR, currentColor);
 				
 				if (selectedColor != null && !selectedColor.equals(currentColor))
 				{
@@ -81,7 +90,7 @@ public class BubblePanel extends JPanel
 		txtBackground.setColumns(2);
 		txtBackground.setBackground(getBackground());
 		
-		JLabel lblBubbleColor = new JLabel("Bubble color:");
+		JLabel lblBubbleColor = new JLabel(LABEL_FOREGROUND);
 		panel.add(lblBubbleColor);
 		
 		txtBubbleColor = new JTextField();
@@ -94,7 +103,7 @@ public class BubblePanel extends JPanel
 				
 				if (buttonIndex == MouseEvent.BUTTON1)
 				{
-					Color selectedColor = JColorChooser.showDialog(null, "Choose a bubble color", bubbleColor);
+					Color selectedColor = JColorChooser.showDialog(null, CHOOSE_BUBBLE_COLOR, bubbleColor);
 					
 					if (selectedColor != null && !selectedColor.equals(bubbleColor))
 					{
@@ -122,7 +131,7 @@ public class BubblePanel extends JPanel
 		txtBubbleColor.setText("  ");
 		txtBubbleColor.setColumns(2);
 		
-		JLabel lblAnimationSpeed = new JLabel("Animation speed:");
+		JLabel lblAnimationSpeed = new JLabel(LABEL_ANIMATION_SPEED);
 		panel.add(lblAnimationSpeed);
 		
 		slider = new JSlider();
@@ -144,7 +153,7 @@ public class BubblePanel extends JPanel
 		panel.add(slider);
 		panel.add(btnPause);
 		
-		JButton btnClear = new JButton("Clear");
+		JButton btnClear = new JButton(BUTTON_CLEAR);
 		btnClear.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
